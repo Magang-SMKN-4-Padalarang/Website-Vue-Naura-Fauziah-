@@ -1,12 +1,12 @@
 <template>
   <Login
     v-if="!isLogin"
-    @login-berhasil="isLogin = true"
+    @login-berhasil="loginBerhasil"
   />
 
   <Home
     v-else
-    @logout="isLogin = false"
+    @logout="logout"
   />
 </template>
 
@@ -22,8 +22,20 @@ export default {
 
   data() {
     return {
-      isLogin: false
+      isLogin: localStorage.getItem("isLogin") === "true"
     }
+  },
+
+  methods: {
+    loginBerhasil() {
+      this.isLogin = true
+      localStorage.setItem("isLogin", "true")
+    },
+
+  logout() {
+    this.isLogin = false
+    localStorage.removeItem("isLogin")
+  }
   }
 }
 </script>
